@@ -49,8 +49,19 @@ public boolean isWon()
 public void displayLosingMessage()
 {
     //your code here
-    fill(255);
-    background(0);
+/*    buttons[10][1] = ;
+    buttons[10][2] = ;
+    buttons[10][3] = ;
+    buttons[10][4] = ;
+    buttons[10][5] = ;
+    buttons[10][6] = ;
+
+    buttons[10][7] = ;
+    buttons[10][8] = ;
+    buttons[10][9] = ;
+    buttons[10][10] = ;
+    */
+
 }
 public void displayWinningMessage()
 {
