@@ -4,6 +4,8 @@ import de.bezier.guido.*;
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
 public final static int NUM_ROWS = 20;
 public final static int NUM_COLS = 20;
+public boolean lost= false;
+
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs = new ArrayList <MSButton> (); //ArrayList of just the minesweeper buttons that are mined
@@ -61,7 +63,9 @@ public void displayLosingMessage()
     buttons[10][9] = ;
     buttons[10][10] = ;
     */
-
+    background(255);
+    textAlign(CENTER);
+    text("You Lost", 200, 200);
 }
 public void displayWinningMessage()
 {
@@ -100,10 +104,41 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
+
         //your code here
         if(keyPressed) marked = !marked;
-        else if(bombs.contains(this))  displayLosingMessage();
+        if(marked == true)
+
+        {
+
+
+
+          marked = false;
+
+          if(isValid(r,c-1) && buttons[r][c-1].isMarked())
+
+            buttons[r][c-1].mousePressed();
+
+          //3 more recursive calls
+
+        
+          if(isValid(r, c+1) && buttons[r][c+1].isMarked())
+            buttons[r][c+1].mousePressed();
+          if(isValid(r+1, c) && buttons[r+1][c].isMarked())
+            buttons[r+1][c].mousePressed();
+          if(isValid(r-1, c) && buttons[r-1][c].isMarked())
+            buttons[r-1][c].mousePressed();
+
+      }
+        else if(bombs.contains(this))  {
+         //   displayLosingMessage();
+            lost = true;
+
+        }
         else if(countBombs(r, c) > 0) label += countBombs(r, c);
+        else if(countBombs(this.r, this.c) == 0 && clicked == false){
+ 
+        }
     }
 
     public void draw () 
@@ -120,23 +155,25 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         text(label,x+width/2,y+height/2);
+     //   if(lost == true) displayLosingMessage();
     }
     public void setLabel(String newLabel)
     {
         label = newLabel;
     }
-    public boolean isValid(int r, int c)
+    public boolean isValid(int row, int col)
     {
-        //your code here
-        if((r >= 0 && r < NUM_ROWS) && (c >= 0 && c < NUM_COLS))       return true;
-        else return false;
+
+        if((row < 0 || col < 0) || (row > NUM_ROWS) || col > NUM_COLS)return false;
+        else return true;
+
     }
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
         //your code here
   //      if((row - 1 >= 0 && row + 1 < 20) && (col >= 0 && col < 20)) {
-            if(isValid(row, col - 1) && bombs.contains(buttons[row][col-1])) numBombs += 1;
+            if(isValid(row, col - 1) && bombs.contains(this.c-1)) numBombs += 1;
             if(isValid(row, col + 1) && bombs.contains(buttons[row][col+1])) numBombs += 1;
             if(isValid(row+1, col) && bombs.contains(buttons[row+1][col])) numBombs += 1;
             if(isValid(row+1, col - 1) && bombs.contains(buttons[row+1][col-1])) numBombs += 1;
@@ -145,6 +182,7 @@ public class MSButton
             if(isValid(row-1, col - 1) && bombs.contains(buttons[row-1][col-1])) numBombs += 1;
             if(isValid(row-1, col + 1) && bombs.contains(buttons[row-1][col+1])) numBombs += 1;
 
+            System.out.println(numBombs);
 //
 //        }
  //       else{
