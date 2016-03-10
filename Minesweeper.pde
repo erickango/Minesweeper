@@ -9,7 +9,7 @@ public boolean lost= false;
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs = new ArrayList <MSButton> (); //ArrayList of just the minesweeper buttons that are mined
-private final static int numBombs = 100;
+private final static int numBombs = 50;
 void setup ()
 {
     size(400, 400);
@@ -106,7 +106,7 @@ public class MSButton
             lost = true;
       }
     else if(countBombs(r, c) > 0){
-        label += countBombs(r, c);
+        setLabel("" + countBombs(r, c)+ "");
     }
 
     else{
@@ -160,7 +160,7 @@ public class MSButton
         int numBombs = 0;
         //your code here
   //      if((row - 1 >= 0 && row + 1 < 20) && (col >= 0 && col < 20)) {
-            if(isValid(row, col - 1) && bombs.contains(this.c-1)) numBombs += 1;
+            if(isValid(row, col - 1) && bombs.contains(buttons[row][col-1])) numBombs += 1;
             if(isValid(row, col + 1) && bombs.contains(buttons[row][col+1])) numBombs += 1;
             if(isValid(row+1, col) && bombs.contains(buttons[row+1][col])) numBombs += 1;
             if(isValid(row+1, col - 1) && bombs.contains(buttons[row+1][col-1])) numBombs += 1;
@@ -168,6 +168,7 @@ public class MSButton
             if(isValid(row-1, col) && bombs.contains(buttons[row-1][col])) numBombs += 1;
             if(isValid(row-1, col - 1) && bombs.contains(buttons[row-1][col-1])) numBombs += 1;
             if(isValid(row-1, col + 1) && bombs.contains(buttons[row-1][col+1])) numBombs += 1;
+            System.out.println(bombs.contains(buttons[r][c]));
         return numBombs;
     }
 }
