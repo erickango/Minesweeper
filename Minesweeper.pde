@@ -10,7 +10,7 @@ public boolean won = false;
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs = new ArrayList <MSButton> (); //ArrayList of just the minesweeper buttons that are mined
-private final static int TOTAL_BOMBS = 5;
+private final static int TOTAL_BOMBS = 50;
 private int numMarked = 0;
 void setup ()
 {
